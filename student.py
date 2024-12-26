@@ -18,3 +18,15 @@ class Student:
     @property
     def full_name(self):
         return f"{self._first_name} {self._last_name}"
+
+    
+    # beacause this is a read-only method, we can we can use the @property decorator
+    @property
+    def email(self):
+        return f"{self._first_name.lower()}.{self._last_name.lower()}@email.com"
+
+
+    # create a method to modify the naughty_list property
+    def alert_santa(self):
+        self.naughty_list = True
+

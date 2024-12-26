@@ -23,6 +23,11 @@ class TestStudents(unittest.TestCase):
         # test whether student.naughty_list is True
         self.assertTrue(student.naughty_list)
 
+    
+    def test_email(self):
+        student = Student('John', 'Doe')
+        
+        self.assertEqual(student.email, 'john.doe@email.com')
 
 # ensure that the test suite is executed when the file is run as a script
 # without having to specify the Unittest module

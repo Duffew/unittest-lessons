@@ -1,4 +1,7 @@
 from datetime import date, timedelta
+# mocking
+# import requests so that we can make requests to out fictional API service
+import requests
 
 class Student:
     """ A Student class as a basis for method testing """
@@ -33,5 +36,19 @@ class Student:
     # code-along challenge
     def apply_extension(self, days):
         self.end_date = self.end_date + timedelta(days=5)
+
+    
+    # mocking
+    def course_schedule(self):
+        # get the student's schedule from url and store it in a variable called 'reponse'
+        response = requests.get(
+            f"https://company.com/course-schedule/{self._last_name}/{self._first_name}")
+
+        # if we can access the url, return the text
+        if response.ok:
+            return response.text
+        # if we can't access the url, return...
+        else:
+            return "Something went wrong"
 
 

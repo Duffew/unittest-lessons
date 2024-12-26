@@ -5,6 +5,9 @@ import unittest
 from student import Student
 from datetime import timedelta
 
+# mocking
+from unittest.mock import patch
+
 # set up an empty class for the test
 class TestStudents(unittest.TestCase):
 
@@ -62,6 +65,32 @@ class TestStudents(unittest.TestCase):
         self.student.apply_extension(5)
 
         self.assertEqual(self.student.end_date, old_end_date + timedelta(days=5))
+
+    
+    # mocking
+    def test_course_schedule_success(self):
+        # create an object called 'mocked_get' to test get requests
+        with patch("student.requests.get") as mocked_get:
+            # now set the mocked response we want to check
+            mocked_get.return_value.ok = True
+            mocked_get.return_value.text = "Success"
+
+            schedule = self.student.course_schedule()
+            self.assertEqual(schedule, "Success")
+    
+    def test_course_schedule_failed(self):
+        """
+        In the path "student" comes from the name of the file student.py
+        If you have named the file something else - it will need to match
+        eg, students.py would need "students.requests.get"
+        """
+        # create an object called 'mocked_get' to test get requests
+        with patch("student.requests.get") as mocked_get:
+            # now set the mocked response we want to check - couldn't connect to API in this instance
+            mocked_get.return_value.ok = False
+
+            schedule = self.student.course_schedule()
+            self.assertEqual(schedule, "Something went wrong")
 
 # ensure that the test suite is executed when the file is run as a script
 # without having to specify the Unittest module

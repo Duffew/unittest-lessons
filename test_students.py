@@ -3,6 +3,7 @@ import unittest
 
 # import the Sutdent class to be tested from student.py
 from student import Student
+from datetime import timedelta
 
 # set up an empty class for the test
 class TestStudents(unittest.TestCase):
@@ -53,6 +54,14 @@ class TestStudents(unittest.TestCase):
         # student = Student('John', 'Doe')
         
         self.assertEqual(self.student.email, 'john.doe@email.com')
+
+
+    # code-along challenge
+    def test_apply_extension(self):
+        old_end_date = self.student.end_date
+        self.student.apply_extension(5)
+
+        self.assertEqual(self.student.end_date, old_end_date + timedelta(days=5))
 
 # ensure that the test suite is executed when the file is run as a script
 # without having to specify the Unittest module

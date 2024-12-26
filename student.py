@@ -30,3 +30,8 @@ class Student:
     def alert_santa(self):
         self.naughty_list = True
 
+    # code-along challenge
+    def apply_extension(self, days):
+        self.end_date = self.end_date + timedelta(days=5)
+
+
